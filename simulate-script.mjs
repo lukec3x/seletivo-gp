@@ -22,15 +22,15 @@ async function createAccounts() {
   const accounts = [
     {
       accountNumber: '123456',
-      accountBalance: 1000,
+      accountBalance: 0,
     },
     {
       accountNumber: '654321',
-      accountBalance: 2000,
+      accountBalance: 0,
     },
     {
       accountNumber: '987654',
-      accountBalance: 3000,
+      accountBalance: 0,
     },
   ];
 
@@ -40,6 +40,34 @@ async function createAccounts() {
   }
 
   console.log('Contas criadas.');
+}
+
+async function simulateConcurrentDeposits() {
+  const baseUrl = 'http://localhost:3000/transactions/deposit';
+
+  const deposit1 = {
+    accountNumber: '123456',
+    amount: 1_000,
+  };
+
+  const deposit2 = {
+    accountNumber: '654321',
+    amount: 2_000,
+  };
+
+  const deposit3 = {
+    accountNumber: '987654',
+    amount: 3_000,
+  };
+
+  console.log('Iniciando depositos simultâneos...');
+  await Promise.all([
+    makeRequest(baseUrl, deposit1),
+    makeRequest(baseUrl, deposit2),
+    makeRequest(baseUrl, deposit3),
+  ]);
+
+  console.log('Finalizados os depósitios simultâneos.');
 }
 
 async function simulateConcurrentTransfers() {
@@ -93,6 +121,8 @@ async function main() {
   console.log('Simulação de concorrência em transações iniciada...');
 
   await createAccounts();
+
+  await simulateConcurrentDeposits();
 
   await simulateConcurrentTransfers();
 
