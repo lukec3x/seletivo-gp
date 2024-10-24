@@ -33,11 +33,12 @@ export class AccountsService {
   }
 
   async create(createAccountDto: CreateAccountDto): Promise<Account> {
-    const accountNumber = await this.generateUniqueAccountNumber();
+    // const accountNumber = await this.generateUniqueAccountNumber();
 
     return await this.prisma.account.create({
       data: {
-        accountNumber,
+        // accountNumber,
+        accountNumber: createAccountDto.accountNumber,
         accountBalance: createAccountDto.accountBalance,
       },
     });
