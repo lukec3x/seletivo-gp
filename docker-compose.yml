@@ -27,6 +27,20 @@ services:
     networks:
       - sgp_network
 
+  job:
+    build:
+      context: .
+      dockerfile: Dockerfile.job
+    container_name: sgp_job
+    depends_on:
+      - postgres
+      - app
+    environment:
+      DATABASE_URL: postgres://myuser:mypassword@postgres:5432/sgp
+      RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672/
+    networks:
+      - sgp_network
+
 volumes:
   postgres_data:
 
