@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Account" ALTER COLUMN "accountBalance" SET DATA TYPE DOUBLE PRECISION;
