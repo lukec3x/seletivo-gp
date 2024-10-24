@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
 import { DepositDto } from './dto/deposit.dto';
 import { WithdrawalDto } from './dto/withdrawal.dto';
@@ -7,6 +7,11 @@ import { TransferDto } from './dto/transfer.dto';
 @Controller('transactions')
 export class TransactionsController {
   constructor(private readonly transactionsService: TransactionsService) {}
+
+  @Get()
+  report() {
+    return this.transactionsService.report();
+  }
 
   @Post('deposit')
   deposit(@Body() depositDto: DepositDto) {

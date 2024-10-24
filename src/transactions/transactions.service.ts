@@ -15,6 +15,54 @@ export class TransactionsService {
     return `${prefix.slice(0, 2).toUpperCase()}-${accountNumber}-${timestamp}-${randomPart}`;
   }
 
+  async report(): Promise<{
+    contas: {
+      numero: string;
+      saldo: number;
+    }[];
+    transacoes: {
+      tipo: string;
+      origem: string;
+      destino: string;
+      valor: number;
+    }[];
+  }> {
+    const accounts = await this.prisma.account.findMany({
+      select: {
+        accountNumber: true,
+        accountBalance: true,
+      },
+    });
+    const customizedAccounts = accounts.map((account) => ({
+      numero: account.accountNumber,
+      saldo: account.accountBalance,
+    }));
+
+    const transactions = await this.prisma.transactionHistory.findMany({
+      select: {
+        transactionType: true,
+        fromAccount: true,
+        toAccount: true,
+        amount: true,
+      },
+    });
+    const customizedTransactions = transactions.map((transaction) => ({
+      tipo: transaction.transactionType,
+      origem: transaction.fromAccount
+        ? transaction.fromAccount.accountNumber
+        : null,
+      destino: transaction.toAccount
+        ? transaction.toAccount.accountNumber
+        : null,
+      valor: transaction.amount,
+    }));
+
+    return {
+      contas: customizedAccounts,
+      transacoes: customizedTransactions,
+    };
+  }
+
   async deposit(depositDto: DepositDto): Promise<TransactionHistory> {
     const transactionType = 'DEPOSIT';
 
