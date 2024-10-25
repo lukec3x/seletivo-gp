@@ -82,8 +82,8 @@ Gera um JSON com todas as contas e os seus históricos de transações.
 curl --location 'http://localhost:3000/transactions/'
 ```
 
-## Melhorias
+## Sugestões de Melhorias
 
 ### Usar filas
 
-Mudar o sistema de queries no `handle-transactions` para um siatema robusto de filas como o RabbitMQ.
+Mudar o sistema de queries no `handle-transactions` para um sistema robusto de filas como o RabbitMQ.
