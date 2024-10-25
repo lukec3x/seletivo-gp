@@ -82,7 +82,7 @@ Gera um JSON com todas as contas e os seus históricos de transações.
 curl --location 'http://localhost:3000/transactions/'
 ```
 
-## Sugestões de Melhorias
+## Sugestão de Melhoria
 
 ### Usar filas
 
