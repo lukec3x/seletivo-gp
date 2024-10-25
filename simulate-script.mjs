@@ -22,15 +22,15 @@ async function createAccounts() {
   const accounts = [
     {
       accountNumber: '123456',
-      accountBalance: 0,
+      accountBalance: 1_000,
     },
     {
       accountNumber: '654321',
-      accountBalance: 0,
+      accountBalance: 2_000,
     },
     {
       accountNumber: '987654',
-      accountBalance: 0,
+      accountBalance: 3_000,
     },
   ];
 
